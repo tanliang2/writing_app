@@ -4,12 +4,14 @@ class WritingCard extends StatelessWidget {
   final String topic;
   final Function(String) onTopicChanged;
   final VoidCallback onDelete;
+  final int index;
 
   const WritingCard({
     super.key,
     required this.topic,
     required this.onTopicChanged,
     required this.onDelete,
+    required this.index,
   });
 
   @override
@@ -23,9 +25,9 @@ class WritingCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Text(
-                  'Writing Topic',
-                  style: TextStyle(
+                Text(
+                  'Writing Topic ${index + 1}',
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -54,9 +56,15 @@ class WritingCard extends StatelessWidget {
                 ),
               decoration: const InputDecoration(
                 hintText: 'The writing topic has not been filled in',
-                border: OutlineInputBorder(),
+                border: UnderlineInputBorder(),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue),
+                ),
                 contentPadding: EdgeInsets.symmetric(
-                  horizontal: 12,
+                  horizontal: 0,
                   vertical: 8,
                 ),
               ),

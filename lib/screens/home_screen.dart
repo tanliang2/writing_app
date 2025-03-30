@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Expanded(
                   child: Container(
-                    height: 48,
+                    height: 96,
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     decoration: BoxDecoration(
                       border: Border(
@@ -90,65 +90,69 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: List.generate(_tabs.length, (index) {
-                              return IntrinsicHeight(
-                                child: Row(
-                                  children: [
-                                    if (index > 0)
-                                      VerticalDivider(
-                                        color: Colors.grey[300],
-                                        width: 1,
-                                        thickness: 1,
-                                      ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _currentIndex = index;
-                                        });
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                          vertical: 8,
+                        Expanded(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: List.generate(_tabs.length, (index) {
+                                return IntrinsicHeight(
+                                  child: Row(
+                                    children: [
+                                      if (index > 0)
+                                        VerticalDivider(
+                                          color: Colors.grey[300],
+                                          width: 1,
+                                          thickness: 1,
                                         ),
-                                        decoration: BoxDecoration(
-                                          color: _currentIndex == index
-                                              ? Colors.blue
-                                              : Colors.transparent,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              _tabs[index],
-                                              style: TextStyle(
-                                                color: _currentIndex == index
-                                                    ? Colors.white
-                                                    : Colors.black,
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            _currentIndex = index;
+                                          });
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 16,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: _currentIndex == index
+                                                ? Colors.blue
+                                                : Colors.transparent,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                _tabs[index],
+                                                style: TextStyle(
+                                                  color: _currentIndex == index
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                ),
                                               ),
-                                            ),
-                                            const SizedBox(width: 4),
-                                            InkWell(
-                                              onTap: () => _removeTab(index),
-                                              child: Icon(
-                                                Icons.close,
-                                                size: 16,
-                                                color: _currentIndex == index
-                                                    ? Colors.white
-                                                    : Colors.grey,
+                                              const SizedBox(width: 4),
+                                              InkWell(
+                                                onTap: () => _removeTab(index),
+                                                child: Icon(
+                                                  Icons.close,
+                                                  size: 16,
+                                                  color: _currentIndex == index
+                                                      ? Colors.white
+                                                      : Colors.grey,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }),
+                                    ],
+                                  ),
+                                );
+                              }),
+                            ),
                           ),
                         ),
                         IconButton(
@@ -174,6 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       topic: _cardTopics[_currentIndex][index],
                       onTopicChanged: (value) => _updateCardTopic(index, value),
                       onDelete: () => _removeCard(index),
+                      index: index,
                     );
                   },
                 ),
