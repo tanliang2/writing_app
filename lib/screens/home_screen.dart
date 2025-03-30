@@ -65,6 +65,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     // 返回功能
                   },
                 ),
+              ],
+            ),
+          ),
+          Container(
+            child: Row(
+              children: [
                 Expanded(
                   child: Container(
                     height: 48,
@@ -126,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (index == _cardTopics[_currentIndex].length) {
                   return Center(
                     child: IconButton(
-                      icon: const Icon(Icons.add_circle_outline, size: 40),
+                      icon: const Icon(Icons.add_circle_outline, size: 30),
                       onPressed: _addCard,
                     ),
                   );
