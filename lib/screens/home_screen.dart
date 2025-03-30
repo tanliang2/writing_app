@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (index == _cardTopics[_currentIndex].length) {
                   return Center(
                     child: IconButton(
-                      icon: const Icon(Icons.add_circle_outline, size: 30),
+                      icon: const Icon(Icons.add_circle_outline, size: 30,color: Colors.blue,),
                       onPressed: _addCard,
                     ),
                   );
