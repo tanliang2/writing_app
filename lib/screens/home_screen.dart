@@ -11,12 +11,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> _tabs = ['Vocabulary', 'Sentence', 'Writing'];
   int _currentIndex = 2; // 默认选中Writing标签
-  final List<List<String>> _cardTopics = [[], [], []]; // 每个标签页的卡片内容
+  final List<List<String>> _cardTopics = [
+    [''], // Vocabulary 默认一个空卡片
+    [''], // Sentence 默认一个空卡片
+    [''], // Writing 默认一个空卡片
+  ];
 
   void _addTab() {
     setState(() {
       _tabs.insert(_currentIndex + 1, 'Reading');
-      _cardTopics.insert(_currentIndex + 1, []);
+      _cardTopics.insert(_currentIndex + 1, ['']); // 新标签页也默认一个空卡片
       _currentIndex = _currentIndex + 1;
     });
   }
@@ -128,25 +132,52 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: _cardTopics[_currentIndex].length + 1,
-              itemBuilder: (context, index) {
-                if (index == _cardTopics[_currentIndex].length) {
-                  return Center(
-                    child: IconButton(
-                      icon: const Icon(Icons.add_circle_outline, size: 30,color: Colors.blue,),
-                      onPressed: _addCard,
+            child: Stack(
+              children: [
+                ListView.builder(
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 80),
+                  itemCount: _cardTopics[_currentIndex].length,
+                  itemBuilder: (context, index) {
+                    return WritingCard(
+                      key: ValueKey('card_$_currentIndex\_$index'),
+                      topic: _cardTopics[_currentIndex][index],
+                      onTopicChanged: (value) => _updateCardTopic(index, value),
+                      onDelete: () => _removeCard(index),
+                    );
+                  },
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 20,
+                  child: Center(
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            spreadRadius: 1,
+                            blurRadius: 3,
+                            offset: const Offset(0, 1),
+                          ),
+                        ],
+                      ),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.add_circle_outline,
+                          size: 30,
+                          color: Colors.blue,
+                        ),
+                        onPressed: _addCard,
+                      ),
                     ),
-                  );
-                }
-                return WritingCard(
-                  key: ValueKey('card_$_currentIndex\_$index'),
-                  topic: _cardTopics[_currentIndex][index],
-                  onTopicChanged: (value) => _updateCardTopic(index, value),
-                  onDelete: () => _removeCard(index),
-                );
-              },
+                  ),
+                ),
+              ],
             ),
           ),
         ],
