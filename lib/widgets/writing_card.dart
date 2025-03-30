@@ -26,7 +26,28 @@ class WritingCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Writing Topic ${index + 1}',
+                  ' ${index + 1}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+
+                ),
+                Expanded(child: Container()),
+                IconButton(
+                  icon: const Icon(Icons.delete_outline),
+                  onPressed: onDelete,
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                ),
+              ],
+            ),
+            SizedBox(height: 10,),
+
+            Row(
+              children: [
+                Text(
+                  'Writing Topic ',
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -40,12 +61,7 @@ class WritingCard extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                IconButton(
-                  icon: const Icon(Icons.delete_outline),
-                  onPressed: onDelete,
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                ),
+
               ],
             ),
             const SizedBox(height: 8),
