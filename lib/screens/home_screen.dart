@@ -81,45 +81,76 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     height: 48,
                     padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.blue,
+                          width: 1,
+                        ),
+                      ),
+                    ),
                     child: Row(
                       children: [
-                        // Expanded(
-                        //   child: ,
-                        // ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             children: List.generate(_tabs.length, (index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 4),
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      _currentIndex = index;
-                                    });
-                                  },
-                                  child: Chip(
-                                    label: Text(_tabs[index]),
-                                    backgroundColor: _currentIndex == index
-                                        ? Colors.blue
-                                        : Colors.grey[200],
-                                    labelStyle: TextStyle(
-                                      color: _currentIndex == index
-                                          ? Colors.white
-                                          : Colors.black,
+                              return IntrinsicHeight(
+                                child: Row(
+                                  children: [
+                                    if (index > 0)
+                                      VerticalDivider(
+                                        color: Colors.grey[300],
+                                        width: 1,
+                                        thickness: 1,
+                                      ),
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          _currentIndex = index;
+                                        });
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 8,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: _currentIndex == index
+                                              ? Colors.blue
+                                              : Colors.transparent,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              _tabs[index],
+                                              style: TextStyle(
+                                                color: _currentIndex == index
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 4),
+                                            InkWell(
+                                              onTap: () => _removeTab(index),
+                                              child: Icon(
+                                                Icons.close,
+                                                size: 16,
+                                                color: _currentIndex == index
+                                                    ? Colors.white
+                                                    : Colors.grey,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                    deleteIcon: const Icon(Icons.close, size: 18),
-                                    onDeleted: () => _removeTab(index),
-                                    labelPadding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 0,
-                                    ),
-                                  ),
+                                  ],
                                 ),
                               );
                             }),
                           ),
-                        )   ,
+                        ),
                         IconButton(
                           icon: const Icon(Icons.add),
                           onPressed: _addTab,
