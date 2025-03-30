@@ -56,10 +56,12 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 40),
+            padding: const EdgeInsets.only(top: 40, left: 4),
             child: Row(
               children: [
                 IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     // 返回功能
@@ -77,42 +79,43 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Row(
                       children: [
-                        Expanded(
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: List.generate(_tabs.length, (index) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        _currentIndex = index;
-                                      });
-                                    },
-                                    child: Chip(
-                                      label: Text(_tabs[index]),
-                                      backgroundColor: _currentIndex == index
-                                          ? Colors.blue
-                                          : Colors.grey[200],
-                                      labelStyle: TextStyle(
-                                        color: _currentIndex == index
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                      deleteIcon: const Icon(Icons.close, size: 18),
-                                      onDeleted: () => _removeTab(index),
-                                      labelPadding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 0,
-                                      ),
+                        // Expanded(
+                        //   child: ,
+                        // ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(_tabs.length, (index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4),
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _currentIndex = index;
+                                    });
+                                  },
+                                  child: Chip(
+                                    label: Text(_tabs[index]),
+                                    backgroundColor: _currentIndex == index
+                                        ? Colors.blue
+                                        : Colors.grey[200],
+                                    labelStyle: TextStyle(
+                                      color: _currentIndex == index
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                    deleteIcon: const Icon(Icons.close, size: 18),
+                                    onDeleted: () => _removeTab(index),
+                                    labelPadding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 0,
                                     ),
                                   ),
-                                );
-                              }),
-                            ),
+                                ),
+                              );
+                            }),
                           ),
-                        ),
+                        )   ,
                         IconButton(
                           icon: const Icon(Icons.add),
                           onPressed: _addTab,
